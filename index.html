@@ -15,6 +15,16 @@
 		.cool_link {
 			margin-right: 40px;
 		}
+        
+        .center {
+            text-align: center;
+        }
+
+        .centered_absolute {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
 		</style>
 
 		<h1 style="text-align: center;">heyyy, NERD</h1>
@@ -35,6 +45,45 @@
 			that's pretty much it atm. i'll probably link to more websites in the future.
 		</div>
 
+        <div style="margin-top: 100px" class="center">
+            <p id="flavourtext" class="centered_absolute" style="color: #303030; font-style: italic;">click anywhere to play audio</p>
+            <img id="mute_button" class="centered_absolute" hidden src="images/not_muted.png" />
+
+            <video style="margin-top: 50px" class="centered_absolute" id="portaltohell" autoplay loop muted src="images/portal_to_hell.mp4"> </video> 
+        </div>
+
+
 		<!-- no javascript? -->
+        <script>
+            const portal_to_hell = document.querySelector("#portaltohell");
+            const flavourtext = document.querySelector("#flavourtext");
+            const mute_button = document.querySelector("#mute_button");
+            
+            function toggle_video_audio() {
+                portal_to_hell.volume = 0.1;
+                portal_to_hell.muted = false;
+
+                flavourtext.hidden = true;
+                mute_button.hidden = false;
+                this.removeEventListener("click", toggle_video_audio);
+            };
+
+            document.defaultView.addEventListener("click", toggle_video_audio);
+
+            mute_button.addEventListener("click", function() {
+                portal_to_hell.muted = !portal_to_hell.muted;
+
+                if (portal_to_hell.muted) { 
+                    mute_button.src = "images/muted.png"; 
+                    console.log("muted");
+                }
+                else { 
+                    mute_button.src = "images/not_muted.png"; 
+                    console.log("not muted");
+                }
+
+                portal_to_hell.play();
+            });
+        </script>
 	</body>
 </html>
